@@ -56,12 +56,12 @@ spara quiz-data, så att man kan skapa, läsa, uppdatera och ta bort quiz-paket (Q
 
 1. **Klona repot:**
 
-2.Öppna lösningen: Öppna projektet i Visual Studio.
+2. Öppna lösningen: Öppna projektet i Visual Studio.
 
-3.Bygg projektet: Kompilera lösningen. Applikationen kommer att skapa databasen 
+3. Bygg projektet: Kompilera lösningen. Applikationen kommer att skapa databasen 
 (med ditt för- och efternamn) om den inte redan finns.
 
-4.Kör applikationen: Starta applikationen med F5. Databasen skapas automatiskt och 
+4. Kör applikationen: Starta applikationen med F5. Databasen skapas automatiskt och 
 eventuella demodata laddas in vid första körningen.
 
 
