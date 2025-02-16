@@ -1,0 +1,60 @@
+﻿<Window
+    x:Class="TinasLabb03.Dialogs.CategoryManagementDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Manage Categories"
+    Width="300"
+    Height="400"
+    Background="LightGray"
+    WindowStartupLocation="CenterScreen">
+
+    <!--  Kopplar Close-kommandot till en hanterare  -->
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Close" Executed="CloseCommandHandler" />
+    </Window.CommandBindings>
+
+    <!--  Bindning av Esc-tangent för att stänga fönstret  -->
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="ApplicationCommands.Close" />
+    </Window.InputBindings>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--  Lägg till ny kategori  -->
+        <StackPanel
+            Grid.Row="0"
+            Margin="0,0,0,10"
+            Orientation="Horizontal">
+            <TextBox
+                x:Name="CategoryNameTextBox"
+                Width="200"
+                Margin="0,0,10,0" />
+            <Button Click="AddButton_Click" Content="Add" />
+        </StackPanel>
+
+        <!--  Lista med befintliga kategorier  -->
+        <ListBox
+            x:Name="CategoriesListBox"
+            Grid.Row="1"
+            DisplayMemberPath="Name"
+            ItemsSource="{Binding Categories}" />
+
+        <!--  Knappar för att ta bort och stänga  -->
+        <StackPanel
+            Grid.Row="2"
+            Margin="0,10,0,0"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
+            <Button
+                Margin="0,0,10,0"
+                Click="RemoveButton_Click"
+                Content="Remove" />
+            <Button Click="CloseButton_Click" Content="Close" />
+        </StackPanel>
+    </Grid>
+</Window>

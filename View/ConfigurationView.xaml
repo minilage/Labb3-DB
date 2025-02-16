@@ -1,0 +1,184 @@
+﻿<UserControl
+    x:Class="TinasLabb03.View.ConfigurationView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+    xmlns:local="clr-namespace:TinasLabb03.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodel="clr-namespace:TinasLabb03.ViewModel"
+    d:Background="White"
+    d:DataContext="{d:DesignInstance Type=viewmodel:ConfigurationViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  Vänstra kolumnen rad 0: Default Question Pack och knappar  -->
+        <Grid
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="10,10,10,0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox
+                Width="200"
+                HorizontalAlignment="Left"
+                Background="{x:Null}"
+                BorderThickness="0"
+                FontWeight="Bold"
+                Foreground="Black"
+                Text="{Binding ActivePack.Name}" />
+
+
+            <!--  StackPanel med knappar  -->
+            <StackPanel
+                Grid.Column="1"
+                Margin="10,0,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Orientation="Horizontal">
+
+                <Button
+                    Width="18"
+                    Height="18"
+                    Margin="5,0,0,0"
+                    Command="{Binding PackOptionsCommand}"
+                    Content="{fa:Icon Sliders}" />
+
+                <Button
+                    Width="18"
+                    Height="18"
+                    Margin="5,0,0,0"
+                    Command="{Binding AddQuestionCommand}"
+                    Content="{fa:Icon Plus}" />
+
+                <Button
+                    Width="18"
+                    Height="18"
+                    Margin="5,0,0,0"
+                    Command="{Binding RemoveQuestionCommand}"
+                    Content="{fa:Icon Minus}" />
+            </StackPanel>
+        </Grid>
+
+        <!--  Vänstra kolumnen rad 1: ListBox för frågor  -->
+        <ListBox
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="10,5,10,10"
+            Background="White"
+            DisplayMemberPath="Query"
+            ItemsSource="{Binding ActivePack.Questions}"
+            SelectedItem="{Binding SelectedQuestion, Mode=TwoWay}">
+
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Background" Value="LightGray" />
+                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="Margin" Value="0,5,0,0" />
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+
+        <!--  Högra kolumnen rad 0: TextBlock "Question"  -->
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="1"
+            Margin="10,10,10,0"
+            FontWeight="Bold"
+            Foreground="Black"
+            Text="Question"
+            Visibility="{Binding IsRightPanelVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+        <!--  Högra kolumnen rad 1: TextBox för att visa uppdaterade svar  -->
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="10,5,10,0"
+            Visibility="{Binding IsRightPanelVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+            <TextBox
+                Height="90"
+                Margin="0,0,0,10"
+                Background="White"
+                BorderBrush="DarkGray"
+                BorderThickness="1"
+                Text="{Binding SelectedQuestion.Query, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+            <StackPanel Height="230" Margin="0,5,0,0">
+
+                <!--  TextBoxar för svarsalternativ med bindning  -->
+                <TextBlock
+                    Margin="0,5,0,2"
+                    FontWeight="Bold"
+                    Foreground="Black"
+                    Text="Correct Answer:" />
+
+                <TextBox
+                    Margin="0,0,0,10"
+                    Background="White"
+                    BorderBrush="DarkGray"
+                    BorderThickness="1"
+                    Text="{Binding SelectedQuestion.CorrectAnswer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock
+                    Margin="0,5,0,2"
+                    FontWeight="Bold"
+                    Foreground="Black"
+                    Text="First Incorrect Answer:" />
+
+                <TextBox
+                    Margin="0,0,0,10"
+                    Background="White"
+                    BorderBrush="DarkGray"
+                    BorderThickness="1"
+                    Text="{Binding SelectedQuestion.IncorrectAnswers[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock
+                    Margin="0,5,0,2"
+                    FontWeight="Bold"
+                    Foreground="Black"
+                    Text="Second Incorrect Answer:" />
+
+                <TextBox
+                    Margin="0,0,0,10"
+                    Background="White"
+                    BorderBrush="DarkGray"
+                    BorderThickness="1"
+                    Text="{Binding SelectedQuestion.IncorrectAnswers[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock
+                    Margin="0,5,0,2"
+                    FontWeight="Bold"
+                    Foreground="Black"
+                    Text="Third Incorrect Answer:" />
+
+                <TextBox
+                    Margin="0,0,0,10"
+                    Background="White"
+                    BorderBrush="DarkGray"
+                    BorderThickness="1"
+                    Text="{Binding SelectedQuestion.IncorrectAnswers[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
